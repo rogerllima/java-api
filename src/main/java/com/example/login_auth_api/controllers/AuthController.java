@@ -4,6 +4,7 @@ import com.example.login_auth_api.domain.user.User;
 import com.example.login_auth_api.dto.LoginRequestDTO;
 import com.example.login_auth_api.dto.RegisterUserDTO;
 import com.example.login_auth_api.dto.ResponseLoginDTO;
+import com.example.login_auth_api.errorHandler.UserNotFoundException;
 import com.example.login_auth_api.infra.security.TokenService;
 import com.example.login_auth_api.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,9 +25,10 @@ public class AuthController {
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
 
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginRequestDTO body){
-        User user = this.repository.findByEmail(body.email()).orElseThrow(() -> new RuntimeException("User not found"));
+        User user = this.repository.findByEmail(body.email()).orElseThrow(() -> new UserNotFoundException("User not found"));
         if(passwordEncoder.matches(body.password(), user.getPassword())) {
             String token = this.tokenService.generateToken(user);
             return ResponseEntity.ok(new ResponseLoginDTO(user.getName(), token));
