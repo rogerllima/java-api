@@ -1,9 +1,9 @@
 package com.example.login_auth_api.controllers;
 
 import com.example.login_auth_api.domain.user.User;
-import com.example.login_auth_api.dto.LoginRequestDTO;
-import com.example.login_auth_api.dto.RegisterUserDTO;
-import com.example.login_auth_api.dto.ResponseLoginDTO;
+import com.example.login_auth_api.dto.login.LoginRequestDTO;
+import com.example.login_auth_api.dto.user.RegisterUserDTO;
+import com.example.login_auth_api.dto.login.ResponseLoginDTO;
 import com.example.login_auth_api.errorHandler.UserNotFoundException;
 import com.example.login_auth_api.infra.security.TokenService;
 import com.example.login_auth_api.repositories.UserRepository;

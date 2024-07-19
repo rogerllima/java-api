@@ -1,6 +1,7 @@
 package com.example.login_auth_api.infra.security;
 
 import com.example.login_auth_api.domain.user.User;
+import com.example.login_auth_api.errorHandler.UnauthorizedTokenException;
 import com.example.login_auth_api.repositories.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -29,7 +30,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         var login = tokenService.validateToken(token);
 
         if(login != null){
-            User user = userRepository.findByEmail(login).orElseThrow(() -> new RuntimeException("User Not Found"));
+            User user = userRepository.findByEmail(login).orElseThrow(() -> new UnauthorizedTokenException("Unauthorized token"));
             var authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
             var authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
             SecurityContextHolder.getContext().setAuthentication(authentication);
