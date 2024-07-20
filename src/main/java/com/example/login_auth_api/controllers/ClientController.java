@@ -17,9 +17,10 @@ public class ClientController {
     public ResponseEntity createNewClient(@RequestBody Client body ){
         Client client = new Client();
         client.setName(body.getName());
-        client.setTime(body.getTime());
+        client.setAttendance_hour(body.getAttendance_hour());
+        client.setAttendance_date(body.getAttendance_date());
         this.clientRepository.save(body);
-        return ResponseEntity.ok(new RegisterClientDTO(body.getName(), body.getTime()));
+        return ResponseEntity.ok(new RegisterClientDTO(body.getName(), body.getAttendance_hour(), body.getAttendance_date()));
     }
 
     @GetMapping("/list")
@@ -30,5 +31,13 @@ public class ClientController {
     @GetMapping("/find")
     public ResponseEntity findClient(@RequestParam String name){
         return ResponseEntity.ok(this.clientRepository.findByNameIgnoreCaseContaining(name));
+    }
+
+    @PutMapping("/confirm")
+    public ResponseEntity updateConfirmClient(@RequestBody Client data){
+       Client client = this.clientRepository.getReferenceById(data.getId());
+       client.setConfirm_client(data.getConfirm_client());
+       this.clientRepository.save(client);
+       return ResponseEntity.ok("Status was updated");
     }
 }
