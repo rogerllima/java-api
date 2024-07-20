@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
+@Entity(name="clients")
 @Table(name="clients")
 @Getter
 @Setter
@@ -17,5 +17,7 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String name;
-    private String time;
+    private Boolean confirm_client;
+    private String attendance_date;
+    private String attendance_hour;
 }
