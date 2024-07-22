@@ -23,9 +23,14 @@ public class ClientController {
         return ResponseEntity.ok(new RegisterClientDTO(body.getName(), body.getAttendance_hour(), body.getAttendance_date()));
     }
 
-    @GetMapping("/list")
-    public ResponseEntity listClients(){
+    @GetMapping("/list-all")
+    public ResponseEntity listAllClients(){
         return ResponseEntity.ok(this.clientRepository.findAll());
+    }
+
+    @GetMapping("/list-confirmed")
+    public ResponseEntity listConfirmedClients(){
+        return ResponseEntity.ok(this.clientRepository.findConfirmedClients());
     }
 
     @GetMapping("/find")
