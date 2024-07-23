@@ -1,4 +1,6 @@
 package com.example.login_auth_api.dto.user;
 
-public record RegisterUserDTO (String name, String password, String email) {
+import lombok.NonNull;
+
+public record RegisterUserDTO (@NonNull String name, @NonNull String password, @NonNull String email) {
 }

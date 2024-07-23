@@ -10,6 +10,7 @@ import com.example.login_auth_api.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +39,7 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody RegisterUserDTO body){
+    public ResponseEntity register(@RequestBody @Validated RegisterUserDTO body){
         Optional<User> user = this.repository.findByEmail(body.email());
 
         if(user.isEmpty()) {
