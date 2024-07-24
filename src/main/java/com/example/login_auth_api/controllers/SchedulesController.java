@@ -1,6 +1,5 @@
 package com.example.login_auth_api.controllers;
 
-import com.example.login_auth_api.domain.client.Client;
 import com.example.login_auth_api.domain.schedules.Schedules;
 import com.example.login_auth_api.repositories.SchedulesRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +18,17 @@ public class SchedulesController {
             return ResponseEntity.ok(schedulesRepository.findAll());
         }
         return ResponseEntity.ok(schedulesRepository.findByAttendanceDateOrderByAttendanceHour(date));
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity createNewClient(@RequestBody Schedules body ){
+        Schedules schedules = new Schedules();
+        schedules.setIdClient(body.getIdClient());
+        schedules.setConfirmClient(body.getConfirmClient());
+        schedules.setAttendanceHour(body.getAttendanceHour());
+        schedules.setAttendanceDate(body.getAttendanceDate());
+        schedulesRepository.save(body);
+        return ResponseEntity.ok("Scheduled client!");
     }
 
     @GetMapping("/list-confirmed")

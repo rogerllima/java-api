@@ -16,7 +16,7 @@ public class Schedules {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
-    private String name;
+    private String idClient;
     private Boolean confirmClient;
     private String attendanceDate;
     private String attendanceHour;
