@@ -17,35 +17,13 @@ public class ClientController {
     public ResponseEntity createNewClient(@RequestBody Client body ){
         Client client = new Client();
         client.setName(body.getName());
-        client.setAttendanceHour(body.getAttendanceHour());
-        client.setAttendanceDate(body.getAttendanceDate());
+        client.setPhone(body.getPhone());
         clientRepository.save(body);
-        return ResponseEntity.ok(new RegisterClientDTO(body.getName(), body.getAttendanceHour(), body.getAttendanceDate()));
-    }
-
-    @GetMapping("/list-attendances")
-    public ResponseEntity listAllClients(@RequestParam String date){
-        if(date.isEmpty()){
-            return ResponseEntity.ok(clientRepository.findAll());
-        }
-        return ResponseEntity.ok(clientRepository.findByAttendanceDateOrderByAttendanceHour(date));
-    }
-
-    @GetMapping("/list-confirmed")
-    public ResponseEntity listConfirmedClients(){
-        return ResponseEntity.ok(clientRepository.findByConfirmClientTrue());
+        return ResponseEntity.ok(new RegisterClientDTO(body.getName(), body.getPhone()));
     }
 
     @GetMapping("/find")
     public ResponseEntity findClient(@RequestParam String name){
         return ResponseEntity.ok(clientRepository.findByNameIgnoreCaseContaining(name));
-    }
-
-    @PutMapping("/confirm")
-    public ResponseEntity updateConfirmClient(@RequestBody Client data){
-       Client client = clientRepository.getReferenceById(data.getId());
-       client.setConfirmClient(data.getConfirmClient());
-       clientRepository.save(client);
-       return ResponseEntity.ok("Attendance of client was updated");
     }
 }

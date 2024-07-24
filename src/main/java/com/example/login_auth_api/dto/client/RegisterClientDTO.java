@@ -8,12 +8,8 @@ public record RegisterClientDTO (
         @NotNull(message = "Invalid name: name is NULL")
         String name,
 
-        @NotBlank(message = "Invalid attendanceDate: Empty attendanceDate")
-        @NotNull(message = "Invalid attendanceDate: attendanceDate is NULL")
-        String attendanceDate,
-
-        @NotBlank(message = "Invalid attendanceHour: Empty attendanceHour")
-        @NotNull(message = "Invalid attendanceHour: attendanceHour is NULL")
-        String attendanceHour
+        @NotBlank(message = "Invalid phone: Empty phone")
+        @NotNull(message = "Invalid phone: phone is NULL")
+        String phone
 ){
 }

@@ -17,7 +17,5 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String name;
-    private Boolean confirmClient;
-    private String attendanceDate;
-    private String attendanceHour;
+    private String phone;
 }

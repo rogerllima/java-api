@@ -8,7 +8,4 @@ import java.util.List;
 public interface ClientRepository extends JpaRepository<Client, String> {
     List<Client> findByNameIgnoreCaseContaining(String name);
 
-    List<Client> findByConfirmClientTrue();
-
-    List<Client> findByAttendanceDateOrderByAttendanceHour(String date);
 }
