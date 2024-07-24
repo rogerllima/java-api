@@ -4,10 +4,12 @@ import com.example.login_auth_api.domain.user.User;
 import com.example.login_auth_api.dto.login.LoginRequestDTO;
 import com.example.login_auth_api.dto.user.RegisterUserDTO;
 import com.example.login_auth_api.dto.login.ResponseLoginDTO;
+import com.example.login_auth_api.errorHandler.RestErrorMessage;
 import com.example.login_auth_api.errorHandler.UserNotFoundException;
 import com.example.login_auth_api.infra.security.TokenService;
 import com.example.login_auth_api.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
@@ -34,7 +36,8 @@ public class AuthController {
             String token = this.tokenService.generateToken(user);
             return ResponseEntity.ok(new ResponseLoginDTO(token));
         }
-        return ResponseEntity.badRequest().build();
+        RestErrorMessage threatResponse = new RestErrorMessage(HttpStatus.NOT_FOUND, "Email or Password were incorrect");
+        return ResponseEntity.badRequest().body(threatResponse);
     }
 
 
@@ -52,6 +55,7 @@ public class AuthController {
             String token = this.tokenService.generateToken(newUser);
             return ResponseEntity.ok(new ResponseLoginDTO(token));
         }
-        return ResponseEntity.badRequest().build();
+        RestErrorMessage threatResponse = new RestErrorMessage(HttpStatus.BAD_REQUEST, "This email is already saved");
+        return ResponseEntity.badRequest().body(threatResponse);
     }
 }

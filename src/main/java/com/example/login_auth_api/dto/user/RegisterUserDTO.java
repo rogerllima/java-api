@@ -1,5 +1,6 @@
 package com.example.login_auth_api.dto.user;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -14,5 +15,6 @@ public record RegisterUserDTO (
 
         @NotBlank(message = "Invalid email: Empty email")
         @NotNull(message = "Invalid email: email is NULL")
+        @Email(message = "Invalid email: invalid format")
         String email) {
 }
